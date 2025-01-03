@@ -7,18 +7,16 @@ func simplifyPath(path string) string {
 		return r == '/'
 	})
 
-	stack := make([]string, 0, len(parts))
+	var stack []string
 
 	for _, part := range parts {
-		if part == ".." {
-			if len(stack) != 0 {
+		switch part {
+		case "..":
+			if len(stack) > 0 {
 				stack = stack[:len(stack)-1]
-			} else {
-				continue
 			}
-		} else if part == "." {
-			continue
-		} else {
+		case ".":
+		default:
 			stack = append(stack, part)
 		}
 	}
